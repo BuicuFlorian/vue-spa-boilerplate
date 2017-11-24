@@ -1,10 +1,12 @@
 import Vue from 'vue';
 import App from './App.vue';
+import VeeValidate from 'vee-validate';
 import Router from './routes.js';
 import Auth from './utilities/auth/Auth.js';
 import axios from 'axios';
 
 Vue.use(Auth);
+Vue.use(VeeValidate);
 
 window.axios = axios;
 
