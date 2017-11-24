@@ -1,10 +1,10 @@
-import Vue from 'vue'
-import App from './App.vue'
-import Router from './routes.js'
-import Auth from './utilities/auth/Auth.js'
-import axios from 'axios'
+import Vue from 'vue';
+import App from './App.vue';
+import Router from './routes.js';
+import Auth from './utilities/auth/Auth.js';
+import axios from 'axios';
 
-Vue.use(Auth)
+Vue.use(Auth);
 
 window.axios = axios;
 
@@ -15,4 +15,4 @@ new Vue({
     el: '#app',
     render: h => h(App),
     router: Router
-})
+});

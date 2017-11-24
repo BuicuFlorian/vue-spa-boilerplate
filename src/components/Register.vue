@@ -47,9 +47,9 @@ export default {
         name: '',
         email: '',
         password: '',
-        passwordConfirmation: ''
+        passwordConfirmation: '',
       },
-      loading: false
+      loading: false,
     };
   },
 
@@ -64,20 +64,21 @@ export default {
         this.loading = false;
         swal({
           title: 'Warning',
-          text: 'Passwords don\'t match',
+          text: "Passwords don't match",
           type: 'warning',
-          timer: 2000
+          timer: 2000,
         });
         return;
       } else {
-        axios.post('/register', this.form)
+        axios
+          .post('/register', this.form)
           .then(response => {
             this.loading = false;
             swal({
               title: 'Congratulations',
               text: 'Your account was successfully created.',
               type: 'success',
-              timer: 2000
+              timer: 2000,
             });
             this.$router.push('/login');
           })
@@ -87,12 +88,12 @@ export default {
               title: 'Error',
               text: 'Whoops, something went wrong!',
               type: 'error',
-              timer: 2000
+              timer: 2000,
             });
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

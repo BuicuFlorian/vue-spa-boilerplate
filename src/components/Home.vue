@@ -6,11 +6,11 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      message: 'Welcome Home!'
+      message: 'Welcome Home!',
     };
-  }
+  },
 };
 </script>
 

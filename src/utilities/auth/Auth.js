@@ -1,7 +1,7 @@
-import swal from 'sweetalert2'
+import swal from 'sweetalert2';
 
 export default function(Vue) {
-    let authenticatedUser = {}
+    let authenticatedUser = {};
 
     Vue.auth = {
         /**

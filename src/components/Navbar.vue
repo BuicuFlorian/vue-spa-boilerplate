@@ -3,7 +3,10 @@
     <nav>
       <ul class="nav nav-pills pull-right">
         <router-link tag="li" to="/home" v-if="isAuth()">
-          <a>Home</a>
+          <a><i class="fa fa-home"></i> Home</a>
+        </router-link>
+        <router-link tag="li" to="/list" v-if="isAuth()">
+          <a><i class="fa fa-list-ul"></i> List</a>
         </router-link>
         <router-link tag="li" to="/login" v-if="! isAuth()">
           <a>Log In</a>
@@ -47,10 +50,10 @@ export default {
         title: 'Have a nice day',
         html: '<i class="fa fa-handshake-o fa-5x"></i>',
         timer: 2000,
-        confirmButtonText: 'Goodbye'
+        confirmButtonText: 'Goodbye',
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -68,6 +71,5 @@ export default {
   cursor: pointer;
   color: #18bc9c;
   outline: none;
-  click: none;
 }
 </style>
