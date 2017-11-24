@@ -2,32 +2,48 @@
     <div class="col-md-4 col-md-offset-4" id="center-container">
 		<form @submit.prevent="register()">
 			<legend><h1 class="text-center">Sign Up</h1></legend>
-      <div class="form-group">
+      <div class="form-group" v-bind:class="{'has-error': errors.has('name'), 'has-success': ! errors.has('name')}">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-user-circle-o fa-fw"></i></span>
-					<input v-model="form.name" type="text" name="name" class="form-control" placeholder="Name" required autofocus>
+					<input v-model="form.name" v-validate="'required'" type="text" name="name" class="form-control" placeholder="Name">
 				</div>
+        <span class="text-danger"
+          v-show="errors.has('name')">
+          <b>{{ errors.first('name') }}</b>
+        </span>
 			</div>
-			<div class="form-group">
+			<div class="form-group" v-bind:class="{'has-error': errors.has('email'), 'has-success': ! errors.has('email')}">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
-					<input v-model="form.email" type="email" name="email" class="form-control" placeholder="Email" required>
+					<input v-model="form.email" v-validate="'required|email'" type="email" name="email" class="form-control" placeholder="Email">
 				</div>
+        <span class="text-danger"
+          v-show="errors.has('email')">
+          <b>{{ errors.first('email') }}</b>
+        </span>
 			</div>
-			<div class="form-group">
+			<div class="form-group" v-bind:class="{'has-error': errors.has('password'), 'has-success': ! errors.has('password')}">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-					<input v-model="form.password" type="password" name="password" class="form-control" placeholder="Password" required>
+					<input v-model="form.password" v-validate="'required|min:8'" type="password" name="password" class="form-control" placeholder="Password">
 				</div>
+        <span class="text-danger"
+          v-show="errors.has('password')">
+          <b>{{ errors.first('password') }}</b>
+        </span>
 			</div>
-			<div class="form-group">
+			<div class="form-group" v-bind:class="{'has-error': errors.has('passwordConfirmation'), 'has-success': ! errors.has('passwordConfirmation')}">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-lock fa-fw"></i></span>
-					<input v-model="form.passwordConfirmation" type="password" name="passwordConfirmation" class="form-control" placeholder="Password" required>
+					<input v-model="form.passwordConfirmation" v-validate="'required|min:8|confirmed:password'" type="password" name="passwordConfirmation" class="form-control" placeholder="Password">
 				</div>
+        <span class="text-danger"
+          v-show="errors.has('passwordConfirmation')">
+          <b>{{ errors.first('passwordConfirmation') }}</b>
+        </span>
 			</div>
 			<div class="form-group">
-				<button v-show="form.name && form.email && form.password && form.passwordConfirmation" class="btn btn-success btn-block">
+				<button :disabled="errors.any()" class="btn btn-primary btn-block">
           <i v-if="!loading" class="fa fa-user-plus"></i>
           <i v-if="loading" class="fa fa-spinner fa-pulse"></i> 
           Sign Up
@@ -58,18 +74,12 @@ export default {
      * Create a new account.
      */
     register() {
-      this.loading = true;
+      this.$validator.validateAll().then(response => {
+        if (!response) {
+          return;
+        }
 
-      if (this.form.password !== this.form.passwordConfirmation) {
-        this.loading = false;
-        swal({
-          title: 'Warning',
-          text: "Passwords don't match",
-          type: 'warning',
-          timer: 2000,
-        });
-        return;
-      } else {
+        this.loading = true;
         axios
           .post('/register', this.form)
           .then(response => {
@@ -91,7 +101,7 @@ export default {
               timer: 2000,
             });
           });
-      }
+      });
     },
   },
 };

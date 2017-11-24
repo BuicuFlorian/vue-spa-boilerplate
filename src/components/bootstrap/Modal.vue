@@ -10,17 +10,23 @@
           <h1 class="modal-title text-center">{{ modalTitle }}</h1>
         </div>
         <div class="modal-body">
-          <form>
-            <div class="form-group" v-for="(input, index) in inputs">
+          <form @submit.prevent="submitForm()">
+            <div class="form-group" v-for="(input, index) in inputs" v-bind:class="{ 
+              'has-error': errors.has(input),
+              'has-success': ! errors.has(input) }">
               <label for="input">{{ input | capitalize }}:</label>
-              <input type="text" v-model="form[index]" class="form-control" id="input" name="input">
+              <input type="text" class="form-control" :id="input" :name="input"
+                v-model="form[index]"
+                v-validate="'required'">
+              <span class="text-danger"
+                v-show="errors.has(input)">
+                <b>{{ errors.first(input) }}</b>
+              </span>
             </div>
+            <input type="submit" :disabled="errors.any()" class="btn btn-info btn-block" value="Create">
           </form>
         </div>
         <div class="modal-footer">
-          <button @click="onSubmit(form); clearForm();" class="btn btn-success btn-block">
-            Create
-          </button>
         </div>
       </div>
       
@@ -47,6 +53,16 @@ export default {
   },
 
   methods: {
+    submitForm() {
+      this.$validator.validateAll().then(result => {
+        if (!result) {
+          return;
+        }
+        this.onSubmit(this.form);
+        this.clearForm();
+      });
+    },
+
     clearForm() {
       this.form = [];
     },
