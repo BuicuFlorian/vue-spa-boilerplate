@@ -5,7 +5,7 @@
         v-for="task in tasks" 
         :task="task"
         @delete-task="deleteTask(task)"
-        @complete-task="markAsComplete(task)">
+        @complete-task="toggleTaskCompleted(task)">
       </my-task>
     </ul>
 
@@ -115,9 +115,14 @@ export default {
       });
     },
 
-    markAsComplete(task) {
+    toggleTaskCompleted(task) {
       let index = this.tasks.indexOf(task);
-      this.tasks[index].completed = true;
+      
+      if (this.tasks[index].completed === false) {
+        this.tasks[index].completed = true;
+      } else {
+        this.tasks[index].completed = false;
+      }
     },
   },
 };
