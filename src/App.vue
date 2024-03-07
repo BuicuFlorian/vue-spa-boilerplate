@@ -1,97 +1,42 @@
-<template>
-  <div class="container" id="app">
-    <navbar></navbar>
-    <router-view></router-view>
-  </div>
-</template>
-
-<script>
-import Navbar from './components/Navbar.vue';
-
-export default {
-  components: {
-    navbar: Navbar,
-  },
-};
+<script setup lang="ts">
+import NavigationBar from '@/components/NavigationBar.vue'
 </script>
 
-<style>
-/* Space out content a bit */
-body {
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
+<template lang="pug">
+navigation-bar
 
-/* Everything gets side spacing for mobile first views */
-.header,
-.footer {
-  padding-right: 15px;
-  padding-left: 15px;
-}
+router-view
+</template>
 
-/* Custom page header */
-.header {
-  padding-bottom: 20px;
-  border-bottom: 1px solid #e5e5e5;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-}
+<style lang="stylus">
+$red = #ff6161
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
-}
+.input-error
+  outline none
+  box-shadow 0 0 0 0.2rem $red
 
-/* Customize container */
-@media (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-}
-.container-narrow > hr {
-  margin: 30px 0;
-}
+.validation-error
+  text-align center
+  color $red
+  position absolute
+  left  0
+  width 100%
+  margin-top 3px
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-}
+.router-link-active
+  font-weight 700
+  color black
 
-#center-container {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -moz-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -moz-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
+.dark 
+  body
+    filter invert(100%)
+    background-color rgb(29, 32, 31) !important
+  img,
+  .astro-code,
+  .emoji,
+  iframe /* for recaptcha */
+    filter invert(100%) !important
+
+.pointer
+  cursor pointer
 </style>
