@@ -5,35 +5,51 @@
   "author": "Florian B.",
   "license": "MIT",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "vite --open",
+    "build": "run-p type-check \"build-only {@}\" --",
+    "preview": "vite preview",
+    "build-only": "vite build",
+    "type-check": "vue-tsc --build --force",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format": "prettier --write src/"
   },
   "dependencies": {
-    "axios": "^0.17.1",
-    "express": "^4.16.2",
-    "sweetalert2": "^7.0.0",
-    "vee-validate": "^2.0.0-rc.25",
-    "vue": "^2.4.4",
-    "vue-router": "^3.0.1"
+    "@fastify/jwt": "8.0.0",
+    "@fastify/static": "7.0.1",
+    "@vueuse/core": "10.7.2",
+    "dotenv": "16.4.4",
+    "fastify": "4.26.1",
+    "pinia": "2.1.7",
+    "sweetalert2": "11.10.5",
+    "vee-validate": "4.12.5",
+    "vue": "3.4.15",
+    "vue-router": "4.2.5",
+    "yup": "1.3.3"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-stage-3": "^6.24.1",
-    "cross-env": "^5.0.5",
-    "css-loader": "^0.28.7",
-    "file-loader": "^1.1.4",
-    "vue-loader": "^13.0.5",
-    "vue-template-compiler": "^2.4.4",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1"
+    "@rushstack/eslint-patch": "1.3.3",
+    "@tsconfig/node20": "20.1.2",
+    "@types/node": "20.11.10",
+    "@vitejs/plugin-vue": "5.0.3",
+    "@vue/eslint-config-prettier": "8.0.0",
+    "@vue/eslint-config-typescript": "12.0.0",
+    "@vue/language-plugin-pug": "1.8.27",
+    "@vue/tsconfig": "0.5.1",
+    "eslint": "8.49.0",
+    "eslint-plugin-vue": "9.17.0",
+    "eslint-plugin-vue-pug": "0.6.1",
+    "npm-run-all2": "6.1.1",
+    "prettier": "3.0.3",
+    "pug": "3.0.2",
+    "stylus": "0.62.0",
+    "typescript": "~5.3.0",
+    "vite": "5.0.11",
+    "vue-tsc": "1.8.27"
+  },
+  "engines": {
+    "node": "20.11.1"
   }
 }
